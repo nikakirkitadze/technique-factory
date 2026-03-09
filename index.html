@@ -351,7 +351,33 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1f 0%, #0d0d10 100%);
+            gap: 12px;
+        }
+
+        .card-image-placeholder svg {
+            width: 64px;
+            height: 64px;
+            opacity: 0.4;
+        }
+
+        .card-image-placeholder span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .machine-card:hover .card-image {
@@ -1054,6 +1080,18 @@
 </footer>
 
 <script>
+// ==================== SVG GENERATORS ====================
+function makeSvgPlaceholder(brand, type, color) {
+    const icons = {
+        excavator: `<g transform="translate(150,80) scale(0.8)"><path d="M20 120 L60 120 L60 100 L100 100 L100 80 L160 40 L170 50 L120 90 L120 120 L180 120 L180 140 L20 140 Z" fill="${color}" opacity="0.6"/><rect x="30" y="140" width="30" height="15" rx="7" fill="${color}" opacity="0.4"/><rect x="70" y="140" width="30" height="15" rx="7" fill="${color}" opacity="0.4"/><rect x="140" y="140" width="30" height="15" rx="7" fill="${color}" opacity="0.4"/></g>`,
+        loader: `<g transform="translate(150,85) scale(0.8)"><rect x="40" y="60" width="100" height="60" rx="8" fill="${color}" opacity="0.6"/><rect x="30" y="50" width="50" height="30" rx="5" fill="${color}" opacity="0.5"/><path d="M140 70 L180 40 L185 45 L150 75 Z" fill="${color}" opacity="0.5"/><rect x="35" y="120" width="25" height="12" rx="6" fill="${color}" opacity="0.4"/><rect x="100" y="120" width="25" height="12" rx="6" fill="${color}" opacity="0.4"/></g>`,
+        truck: `<g transform="translate(130,90) scale(0.8)"><rect x="20" y="50" width="80" height="55" rx="5" fill="${color}" opacity="0.5"/><rect x="100" y="65" width="80" height="40" rx="5" fill="${color}" opacity="0.6"/><circle cx="50" cy="115" r="12" fill="${color}" opacity="0.4"/><circle cx="150" cy="115" r="12" fill="${color}" opacity="0.4"/><circle cx="170" cy="115" r="12" fill="${color}" opacity="0.4"/></g>`,
+        other: `<g transform="translate(160,90) scale(0.8)"><rect x="40" y="40" width="80" height="70" rx="10" fill="${color}" opacity="0.6"/><circle cx="80" cy="70" r="25" fill="none" stroke="${color}" stroke-width="6" opacity="0.5"/><rect x="30" y="110" width="25" height="12" rx="6" fill="${color}" opacity="0.4"/><rect x="105" y="110" width="25" height="12" rx="6" fill="${color}" opacity="0.4"/></g>`
+    };
+    const icon = icons[type] || icons.other;
+    return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a1a1f"/><stop offset="100%" stop-color="#0d0d10"/></linearGradient></defs><rect width="600" height="400" fill="url(#bg)"/>${icon}<text x="300" y="230" text-anchor="middle" font-family="system-ui,sans-serif" font-size="28" font-weight="800" fill="${color}" opacity="0.7">${brand}</text><text x="300" y="260" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="500" fill="#71717a">${type.toUpperCase()}</text></svg>`)}`;
+}
+
 // ==================== DATA ====================
 const machines = [
     {
@@ -1062,7 +1100,7 @@ const machines = [
         name: "მინი ექსკავატორი 55Z-1",
         nameEn: "Mini Excavator 55Z-1",
         category: "excavator",
-        image: "https://images.unsplash.com/photo-1580901368919-7738efb0f228?w=600&h=400&fit=crop",
+        image: "",
         available: true,
         popular: true,
         priceDaily: 350,
@@ -1092,7 +1130,7 @@ const machines = [
         name: "მინი ექსკავატორი 303.5",
         nameEn: "Mini Excavator 303.5 CR",
         category: "excavator",
-        image: "https://images.unsplash.com/photo-1621922688758-1de010a2c498?w=600&h=400&fit=crop",
+        image: "",
         available: true,
         popular: false,
         priceDaily: 400,
@@ -1122,7 +1160,7 @@ const machines = [
         name: "მინი ექსკავატორი KX040",
         nameEn: "Mini Excavator KX040-4",
         category: "excavator",
-        image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop",
+        image: "",
         available: true,
         popular: true,
         priceDaily: 320,
@@ -1152,7 +1190,7 @@ const machines = [
         name: "ბობკეტი S650",
         nameEn: "Skid-Steer Loader S650",
         category: "loader",
-        image: "https://images.unsplash.com/photo-1590496794008-383c8070b257?w=600&h=400&fit=crop",
+        image: "",
         available: true,
         popular: false,
         priceDaily: 280,
@@ -1182,7 +1220,7 @@ const machines = [
         name: "სატვირთო FH16",
         nameEn: "Dump Truck FH16",
         category: "truck",
-        image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&h=400&fit=crop",
+        image: "",
         available: false,
         popular: false,
         priceDaily: 500,
@@ -1212,7 +1250,7 @@ const machines = [
         name: "ბობკეტი SR270",
         nameEn: "Skid-Steer Loader SR270",
         category: "loader",
-        image: "https://images.unsplash.com/photo-1517089596392-fb9a9033e05b?w=600&h=400&fit=crop",
+        image: "",
         available: true,
         popular: false,
         priceDaily: 260,
@@ -1242,7 +1280,7 @@ const machines = [
         name: "ექსკავატორი ZX130",
         nameEn: "Excavator ZX130-6",
         category: "excavator",
-        image: "https://images.unsplash.com/photo-1565608087341-404b25492fee?w=600&h=400&fit=crop",
+        image: "",
         available: true,
         popular: true,
         priceDaily: 550,
@@ -1272,7 +1310,7 @@ const machines = [
         name: "სატვირთო TGS 33.400",
         nameEn: "Dump Truck TGS 33.400",
         category: "truck",
-        image: "https://images.unsplash.com/photo-1586191582056-3e33db3a4dbe?w=600&h=400&fit=crop",
+        image: "",
         available: true,
         popular: false,
         priceDaily: 450,
@@ -1302,7 +1340,7 @@ const machines = [
         name: "ბეტონის მიქსერი",
         nameEn: "Concrete Mixer 3CX",
         category: "other",
-        image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop",
+        image: "",
         available: true,
         popular: false,
         priceDaily: 200,
@@ -1352,10 +1390,12 @@ function renderCards(filter = 'all') {
         return;
     }
 
-    grid.innerHTML = filtered.map((m, i) => `
+    grid.innerHTML = filtered.map((m, i) => {
+        const imgSrc = m.image || makeSvgPlaceholder(m.brand, m.category, '#d97706');
+        return `
         <div class="machine-card" onclick="openDetail(${m.id})" style="animation-delay: ${i * 0.05}s">
             <div class="card-image-wrap">
-                <img class="card-image" src="${m.image}" alt="${m.name}" loading="lazy" />
+                <img class="card-image" src="${imgSrc}" alt="${m.name}" loading="lazy" />
                 <div class="card-badge">
                     ${m.available
                         ? '<span class="badge badge-available">ხელმისაწვდომი</span>'
@@ -1396,7 +1436,7 @@ function renderCards(filter = 'all') {
                 </div>
             </div>
         </div>
-    `).join('');
+    `}).join('');
 }
 
 // ==================== DETAIL VIEW ====================
@@ -1404,6 +1444,7 @@ function openDetail(id) {
     const m = machines.find(x => x.id === id);
     if (!m) return;
 
+    const detailImg = m.image || makeSvgPlaceholder(m.brand, m.category, '#d97706');
     const specsHtml = Object.entries(m.specs).map(([k, v]) => `
         <div class="detail-spec">
             <div class="detail-spec-label">${k}</div>
@@ -1430,7 +1471,7 @@ function openDetail(id) {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
             </button>
         </div>
-        <img class="detail-hero-img" src="${m.image}" alt="${m.name}" />
+        <img class="detail-hero-img" src="${detailImg}" alt="${m.name}" />
         <div class="detail-content">
             <div class="detail-header">
                 <div class="detail-brand">${m.brand}</div>
