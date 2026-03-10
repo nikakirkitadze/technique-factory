@@ -189,10 +189,7 @@
         .card-spec-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
         .card-spec-value { font-size: 14px; font-weight: 600; }
         .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border); }
-        .card-price { display: flex; flex-direction: column; }
-        .card-price-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
-        .card-price-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
-        .card-price-value span { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+        .card-view-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
         .card-arrow {
             width: 40px; height: 40px; border-radius: 50%;
             background: var(--bg-elevated); border: 1px solid var(--border);
@@ -239,18 +236,6 @@
         .detail-brand { font-size: 13px; font-weight: 600; color: var(--accent-light); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
         .detail-title { font-size: 28px; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
         .detail-subtitle-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
-        .detail-price-block {
-            display: flex; align-items: center; gap: 20px; padding: 20px;
-            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-            margin-bottom: 28px; opacity: 0; transform: translateY(16px);
-            animation: fadeInUp .5s ease-out .4s forwards;
-        }
-        .detail-price-main { flex: 1; }
-        .detail-price-label { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-bottom: 2px; }
-        .detail-price-amount { font-size: 32px; font-weight: 800; letter-spacing: -1px; }
-        .detail-price-amount span { font-size: 16px; font-weight: 500; color: var(--text-muted); }
-        .detail-price-secondary { text-align: right; }
-        .detail-price-secondary .detail-price-amount { font-size: 20px; color: var(--text-secondary); }
         .detail-section { margin-bottom: 28px; opacity: 0; transform: translateY(16px); animation: fadeInUp .5s ease-out forwards; }
         .detail-section:nth-child(4){animation-delay:.45s} .detail-section:nth-child(5){animation-delay:.5s}
         .detail-section:nth-child(6){animation-delay:.55s} .detail-section:nth-child(7){animation-delay:.6s}
@@ -309,7 +294,7 @@
             .filter-section{padding:0 20px 24px}
             .machines-grid{padding:0 20px 60px;grid-template-columns:1fr;gap:16px}
             .detail-panel{max-width:100%} .detail-hero-img{height:240px}
-            .detail-title{font-size:24px} .detail-price-amount{font-size:26px}
+            .detail-title{font-size:24px}
             .footer-inner{flex-direction:column;text-align:center}
         }
         @media(max-width:480px) {
@@ -418,10 +403,7 @@ const T = {
         power: "სიმძლავრე",
         year: "წელი",
         hours: "საათები",
-        dailyPrice: "დღიური ფასი",
-        monthlyPrice: "თვიური ფასი",
-        perDay: "/ დღე",
-        perMonth: "/ თვე",
+        viewDetails: "დეტალურად",
         specs: "ტექნიკური მახასიათებლები",
         description: "აღწერა",
         features: "მახასიათებლები",
@@ -456,10 +438,7 @@ const T = {
         power: "Power",
         year: "Year",
         hours: "Hours",
-        dailyPrice: "Daily Rate",
-        monthlyPrice: "Monthly Rate",
-        perDay: "/ day",
-        perMonth: "/ month",
+        viewDetails: "View Details",
         specs: "Technical Specifications",
         description: "Description",
         features: "Features",
@@ -494,10 +473,7 @@ const T = {
         power: "Мощность",
         year: "Год",
         hours: "Часы",
-        dailyPrice: "Цена за день",
-        monthlyPrice: "Цена за месяц",
-        perDay: "/ день",
-        perMonth: "/ мес",
+        viewDetails: "Подробнее",
         specs: "Технические характеристики",
         description: "Описание",
         features: "Особенности",
@@ -516,8 +492,7 @@ const machines = [
     {
         id: 1, brand: "JCB", category: "excavator", image: "",
         name: { ka: "მინი ექსკავატორი 55Z-1", en: "Mini Excavator 55Z-1", ru: "Мини-экскаватор 55Z-1" },
-        available: true, popular: true, priceDaily: 350, priceMonthly: 7000,
-        weight: { ka: "5.5 ტონა", en: "5.5 Tons", ru: "5.5 Тонн" },
+        available: true, popular: true,        weight: { ka: "5.5 ტონა", en: "5.5 Tons", ru: "5.5 Тонн" },
         power: "48 HP", year: 2022,
         hours: { ka: "~1,200 სთ", en: "~1,200 hrs", ru: "~1,200 ч" },
         description: {
@@ -539,8 +514,7 @@ const machines = [
     {
         id: 2, brand: "CAT", category: "excavator", image: "",
         name: { ka: "მინი ექსკავატორი 303.5", en: "Mini Excavator 303.5 CR", ru: "Мини-экскаватор 303.5 CR" },
-        available: true, popular: false, priceDaily: 400, priceMonthly: 8500,
-        weight: { ka: "3.6 ტონა", en: "3.6 Tons", ru: "3.6 Тонн" },
+        available: true, popular: false,        weight: { ka: "3.6 ტონა", en: "3.6 Tons", ru: "3.6 Тонн" },
         power: "24.4 HP", year: 2023,
         hours: { ka: "~600 სთ", en: "~600 hrs", ru: "~600 ч" },
         description: {
@@ -562,8 +536,7 @@ const machines = [
     {
         id: 3, brand: "Kubota", category: "excavator", image: "",
         name: { ka: "მინი ექსკავატორი KX040", en: "Mini Excavator KX040-4", ru: "Мини-экскаватор KX040-4" },
-        available: true, popular: true, priceDaily: 320, priceMonthly: 6500,
-        weight: { ka: "4.5 ტონა", en: "4.5 Tons", ru: "4.5 Тонн" },
+        available: true, popular: true,        weight: { ka: "4.5 ტონა", en: "4.5 Tons", ru: "4.5 Тонн" },
         power: "40.4 HP", year: 2021,
         hours: { ka: "~2,100 სთ", en: "~2,100 hrs", ru: "~2,100 ч" },
         description: {
@@ -585,8 +558,7 @@ const machines = [
     {
         id: 4, brand: "Bobcat", category: "loader", image: "",
         name: { ka: "ბობკეტი S650", en: "Skid-Steer Loader S650", ru: "Погрузчик S650" },
-        available: true, popular: false, priceDaily: 280, priceMonthly: 5800,
-        weight: { ka: "3.8 ტონა", en: "3.8 Tons", ru: "3.8 Тонн" },
+        available: true, popular: false,        weight: { ka: "3.8 ტონა", en: "3.8 Tons", ru: "3.8 Тонн" },
         power: "74 HP", year: 2022,
         hours: { ka: "~1,800 სთ", en: "~1,800 hrs", ru: "~1,800 ч" },
         description: {
@@ -608,8 +580,7 @@ const machines = [
     {
         id: 5, brand: "Volvo", category: "truck", image: "",
         name: { ka: "სატვირთო FH16", en: "Dump Truck FH16", ru: "Самосвал FH16" },
-        available: false, popular: false, priceDaily: 500, priceMonthly: 11000,
-        weight: { ka: "32 ტონა", en: "32 Tons", ru: "32 Тонны" },
+        available: false, popular: false,        weight: { ka: "32 ტონა", en: "32 Tons", ru: "32 Тонны" },
         power: "540 HP", year: 2020,
         hours: { ka: "~45,000 კმ", en: "~45,000 km", ru: "~45,000 км" },
         description: {
@@ -631,8 +602,7 @@ const machines = [
     {
         id: 6, brand: "CASE", category: "loader", image: "",
         name: { ka: "ბობკეტი SR270", en: "Skid-Steer Loader SR270", ru: "Погрузчик SR270" },
-        available: true, popular: false, priceDaily: 260, priceMonthly: 5200,
-        weight: { ka: "3.5 ტონა", en: "3.5 Tons", ru: "3.5 Тонн" },
+        available: true, popular: false,        weight: { ka: "3.5 ტონა", en: "3.5 Tons", ru: "3.5 Тонн" },
         power: "90 HP", year: 2023,
         hours: { ka: "~400 სთ", en: "~400 hrs", ru: "~400 ч" },
         description: {
@@ -654,8 +624,7 @@ const machines = [
     {
         id: 7, brand: "Hitachi", category: "excavator", image: "",
         name: { ka: "ექსკავატორი ZX130", en: "Excavator ZX130-6", ru: "Экскаватор ZX130-6" },
-        available: true, popular: true, priceDaily: 550, priceMonthly: 12000,
-        weight: { ka: "13.1 ტონა", en: "13.1 Tons", ru: "13.1 Тонн" },
+        available: true, popular: true,        weight: { ka: "13.1 ტონა", en: "13.1 Tons", ru: "13.1 Тонн" },
         power: "89 HP", year: 2022,
         hours: { ka: "~3,200 სთ", en: "~3,200 hrs", ru: "~3,200 ч" },
         description: {
@@ -677,8 +646,7 @@ const machines = [
     {
         id: 8, brand: "MAN", category: "truck", image: "",
         name: { ka: "სატვირთო TGS 33.400", en: "Dump Truck TGS 33.400", ru: "Самосвал TGS 33.400" },
-        available: true, popular: false, priceDaily: 450, priceMonthly: 9500,
-        weight: { ka: "33 ტონა", en: "33 Tons", ru: "33 Тонны" },
+        available: true, popular: false,        weight: { ka: "33 ტონა", en: "33 Tons", ru: "33 Тонны" },
         power: "400 HP", year: 2021,
         hours: { ka: "~62,000 კმ", en: "~62,000 km", ru: "~62,000 км" },
         description: {
@@ -700,8 +668,7 @@ const machines = [
     {
         id: 9, brand: "JCB", category: "other", image: "",
         name: { ka: "ბეტონის მიქსერი 3CX", en: "Concrete Mixer 3CX", ru: "Бетономешалка 3CX" },
-        available: true, popular: false, priceDaily: 200, priceMonthly: 4000,
-        weight: { ka: "8.2 ტონა", en: "8.2 Tons", ru: "8.2 Тонн" },
+        available: true, popular: false,        weight: { ka: "8.2 ტონა", en: "8.2 Tons", ru: "8.2 Тонн" },
         power: "74 HP", year: 2022,
         hours: { ka: "~900 სთ", en: "~900 hrs", ru: "~900 ч" },
         description: {
@@ -723,8 +690,7 @@ const machines = [
     {
         id: 10, brand: "Mecalac", category: "loader", image: "images/mecalac-tlb870-1.jpeg",
         name: { ka: "ექსკავატორ-დამტვირთავი TLB870", en: "Backhoe Loader TLB870", ru: "Экскаватор-погрузчик TLB870" },
-        available: true, popular: true, priceDaily: 380, priceMonthly: 7800,
-        weight: { ka: "7.5 – 8.5 ტონა", en: "7.5 – 8.5 Tons", ru: "7.5 – 8.5 Тонн" },
+        available: true, popular: true,        weight: { ka: "7.5 – 8.5 ტონა", en: "7.5 – 8.5 Tons", ru: "7.5 – 8.5 Тонн" },
         power: "100 HP", year: 2020,
         hours: { ka: "~2,500 სთ", en: "~2,500 hrs", ru: "~2,500 ч" },
         description: {
@@ -746,8 +712,7 @@ const machines = [
     {
         id: 11, brand: "Volvo", category: "excavator", image: "images/volvo-ec55d.jpeg",
         name: { ka: "მინი ექსკავატორი EC55D", en: "Mini Excavator EC55D", ru: "Мини-экскаватор EC55D" },
-        available: true, popular: true, priceDaily: 350, priceMonthly: 7200,
-        weight: { ka: "5.3 – 5.7 ტონა", en: "5.3 – 5.7 Tons", ru: "5.3 – 5.7 Тонн" },
+        available: true, popular: true,        weight: { ka: "5.3 – 5.7 ტონა", en: "5.3 – 5.7 Tons", ru: "5.3 – 5.7 Тонн" },
         power: "47 HP", year: 2019,
         hours: { ka: "~3,000 სთ", en: "~3,000 hrs", ru: "~3,000 ч" },
         description: {
@@ -769,8 +734,7 @@ const machines = [
     {
         id: 12, brand: "Mecalac", category: "loader", image: "images/mecalac-tlb870-2.jpeg",
         name: { ka: "ექსკავატორ-დამტვირთავი TLB870", en: "Backhoe Loader TLB870", ru: "Экскаватор-погрузчик TLB870" },
-        available: true, popular: false, priceDaily: 380, priceMonthly: 7800,
-        weight: { ka: "7.5 – 8.5 ტონა", en: "7.5 – 8.5 Tons", ru: "7.5 – 8.5 Тонн" },
+        available: true, popular: false,        weight: { ka: "7.5 – 8.5 ტონა", en: "7.5 – 8.5 Tons", ru: "7.5 – 8.5 Тонн" },
         power: "100 HP", year: 2020,
         hours: { ka: "~3,100 სთ", en: "~3,100 hrs", ru: "~3,100 ч" },
         description: {
@@ -881,10 +845,7 @@ function renderCards(filter) {
                     <div class="card-spec"><div class="card-spec-label">${t('hours')}</div><div class="card-spec-value">${hrs}</div></div>
                 </div>
                 <div class="card-footer">
-                    <div class="card-price">
-                        <div class="card-price-label">${t('dailyPrice')}</div>
-                        <div class="card-price-value">${m.priceDaily}₾ <span>${t('perDay')}</span></div>
-                    </div>
+                    <div class="card-view-label">${t('viewDetails')}</div>
                     <div class="card-arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </div>
@@ -933,16 +894,6 @@ function openDetail(id) {
                 <h2 class="detail-title">${name}</h2>
                 <p class="detail-subtitle-text">${m.year} ${ys}</p>
             </div>
-            <div class="detail-price-block">
-                <div class="detail-price-main">
-                    <div class="detail-price-label">${t('dailyPrice')}</div>
-                    <div class="detail-price-amount">${m.priceDaily}₾ <span>${t('perDay')}</span></div>
-                </div>
-                <div class="detail-price-secondary">
-                    <div class="detail-price-label">${t('monthlyPrice')}</div>
-                    <div class="detail-price-amount">${m.priceMonthly}₾ <span>${t('perMonth')}</span></div>
-                </div>
-            </div>
             <div class="detail-section">
                 <div class="detail-section-title">${t('specs')}</div>
                 <div class="detail-specs-grid">${specsHtml}</div>
@@ -981,7 +932,7 @@ function closeDetail() {
 function shareMachine(id) {
     const m = machines.find(x => x.id === id);
     if (navigator.share) {
-        navigator.share({ title: localized(m.name), text: `${m.brand} ${localized(m.name)} - ${m.priceDaily}₾/${t('perDay')}`, url: window.location.href });
+        navigator.share({ title: localized(m.name), text: `${m.brand} ${localized(m.name)} — TechniqueFactory`, url: window.location.href });
     }
 }
 
